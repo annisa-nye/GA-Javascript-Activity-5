@@ -47,30 +47,34 @@ checkWeather()
 		// Code to invite only some friends to the house
 	});
 
-
 // Function that uses fetch to get data from the URL
 function getData() {
-    fetch('https://onlineprojectsgit.github.io/API/WDEndpoint.json')
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Request failed');
-            }
-        })
-        .then(data => {
-            console.log(data);
-            return data;
-        })
-        .catch(error => {
-            console.error(error.message);
-        });
+	fetch('https://onlineprojectsgit.github.io/API/WDEndpoint.json')
+		.then((response) => {
+			if (response.ok) {
+				return response.json();
+			} else {
+				throw new Error('Request failed');
+			}
+		})
+		.then((data) => {
+			console.log(data);
+
+			data.info.students.forEach((student) => {
+				let newP = document.createElement('p');
+				newP.innerHTML = student;
+				document.getElementById('students').appendChild(newP);
+			});
+		})
+		.catch((error) => {
+			console.error(error.message);
+		});
 }
 
 // Call getData function to fetch and log the data
 getData();
 
 // Dynamically load and execute getData function
-document.addEventListener("DOMContentLoaded", function() {
-    getData();
+document.addEventListener('DOMContentLoaded', function () {
+	getData();
 });
